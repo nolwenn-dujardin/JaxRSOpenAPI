@@ -9,7 +9,7 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Pet")
-public class Pet {
+public class Pet{
   private long id;
   private String name;
   private List<Tag> tags = new ArrayList<Tag>();

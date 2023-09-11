@@ -33,6 +33,7 @@ public class PetResource {
   public Response addPet(
       @Parameter(description = "Pet object that needs to be added to the store", required = true) Pet pet) {
     // add pet
+
     return Response.ok().entity("SUCCESS").build();
   }
 }

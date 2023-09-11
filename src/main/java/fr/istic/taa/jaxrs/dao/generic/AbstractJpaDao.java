@@ -3,6 +3,7 @@ package fr.istic.taa.jaxrs.dao.generic;
 import java.io.Serializable;
 import java.util.List;
 
+import fr.istic.taa.jaxrs.domain.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -31,6 +32,7 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
 	public void save(T entity) {
 		EntityTransaction t = this.entityManager.getTransaction();
 		t.begin();
+		System.err.println(((User)entity).getEmail());
 		entityManager.persist(entity);
 		t.commit();
 

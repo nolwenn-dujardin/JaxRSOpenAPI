@@ -1,5 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -8,6 +9,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @XmlRootElement(name = "User")
+@Entity
 public class User implements Serializable {
     private long id;
     private String name;

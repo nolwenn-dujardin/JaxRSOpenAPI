@@ -1,7 +1,6 @@
 package fr.istic.taa.jaxrs.domain;
 
 import fr.istic.taa.jaxrs.domain.Client;
-import fr.istic.taa.jaxrs.domain.Professional;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,17 +17,17 @@ public class RDV {
     private String name;
 
     private Client client;
-
-    private Professional pro;
+//
+//    private Professional pro;
 
     private boolean isReserved;
 
-    public RDV(Long id, Date start_time, int duration, String name, Client client, boolean isReserved) {
+    public RDV(Long id, Date start_time, int duration, String name, boolean isReserved) {
         this.id = id;
         this.start_time = start_time;
         this.duration = duration;
         this.name = name;
-        this.client = client;
+//        this.client = client;
         this.isReserved = isReserved;
     }
 
@@ -69,20 +68,13 @@ public class RDV {
         this.name = name;
     }
 
+    @ManyToOne
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Professional getPro() {
-        return pro;
-    }
-
-    public void setPro(Professional pro) {
-        this.pro = pro;
     }
 
     public boolean isReserved() {

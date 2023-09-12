@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @XmlRootElement(name = "User")
 @Entity
-public class User implements Serializable {
+public abstract class User implements Serializable {
     private long id;
     private String name;
     private String email;

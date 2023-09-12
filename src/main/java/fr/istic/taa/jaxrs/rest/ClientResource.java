@@ -32,12 +32,22 @@ public class ClientResource {
     }
 
     @PUT
-    @Path("/update")
+    @Path("/{clientId}")
     @Consumes("application/json")
-    public Response updateClient(@Parameter(required = true) Client client){
-        daoClient.update(client);
+    public Response updateClient(@PathParam("clientId") Long clientId, @Parameter(required = true) Client client){
+        Client existingClient = daoClient.findOne(clientId);
 
-        return Response.ok().entity(client).build();
+        if (existingClient == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        existingClient.setName(client.getName());
+        existingClient.setEmail(client.getEmail());
+        existingClient.setMdp(client.getMdp());
+
+        daoClient.update(existingClient);
+
+        return Response.ok().entity(existingClient).build();
     }
 
     @DELETE

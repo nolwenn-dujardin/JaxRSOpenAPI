@@ -14,18 +14,15 @@ public class UserRessource {
     DaoUser daoUser = new DaoUser();
     @GET
     @Path("/{userId}")
-    public User getPetById(@PathParam("userId") Long userId)  {
+    public User getUserById(@PathParam("userId") Long userId)  {
         return daoUser.findOne(userId);
     }
 
     @POST
     @Consumes("application/json")
     public Response addUser(@Parameter(description = "User object", required = true) User user){
-        System.out.println("Ok");
 
         daoUser.save(user);
-
-        System.out.println("Ok2");
 
         return Response.ok().entity(user).build();
     }

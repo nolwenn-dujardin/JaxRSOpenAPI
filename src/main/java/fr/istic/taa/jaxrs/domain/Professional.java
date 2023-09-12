@@ -19,7 +19,7 @@ public class Professional extends User {
 
     public Professional() {}
 
-    @OneToMany(mappedBy = "professional")
+    @OneToMany(mappedBy = "pro")
     public List<RDV> getAppointments() {
         return appointments;
     }

@@ -69,6 +69,7 @@ public class RDV {
         this.name = name;
     }
 
+    @ManyToOne
     public Client getClient() {
         return client;
     }
@@ -77,6 +78,7 @@ public class RDV {
         this.client = client;
     }
 
+    @ManyToOne
     public Professional getPro() {
         return pro;
     }

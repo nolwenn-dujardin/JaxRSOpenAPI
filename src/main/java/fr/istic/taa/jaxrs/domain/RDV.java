@@ -3,14 +3,14 @@ package fr.istic.taa.jaxrs.domain;
 import fr.istic.taa.jaxrs.domain.Client;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "RDV")
-public class RDV {
+public class RDV implements Serializable {
     private Long id;
 
-    private Date start_time;
+    private String date;
 
     private int duration;
 
@@ -22,9 +22,9 @@ public class RDV {
 
     private boolean isReserved;
 
-    public RDV(Long id, Date start_time, int duration, String name, Client client, boolean isReserved) {
+    public RDV(Long id, String date, int duration, String name, Client client, boolean isReserved) {
         this.id = id;
-        this.start_time = start_time;
+        this.date = date;
         this.duration = duration;
         this.name = name;
         this.client = client;
@@ -44,12 +44,12 @@ public class RDV {
         this.id = id;
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public String getDate() {
+        return date;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getDuration() {

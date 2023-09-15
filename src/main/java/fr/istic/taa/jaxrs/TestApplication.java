@@ -1,13 +1,13 @@
 /**
  * JBoss, Home of Professional Open Source
  * Copyright Red Hat, Inc., and individual contributors.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,18 +20,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 import fr.istic.taa.jaxrs.rest.*;
+import io.swagger.v3.jaxrs2.integration.resources.AcceptHeaderOpenApiResource;
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 @ApplicationPath("/")
 public class TestApplication extends Application {
-	
+
 
     @Override
     public Set<Class<?>> getClasses() {
 
         final Set<Class<?>> clazzes = new HashSet<Class<?>>();
+
+        clazzes.add(AcceptHeaderOpenApiResource.class);
 
         clazzes.add(OpenApiResource.class);
         clazzes.add(PetResource.class);
@@ -39,8 +42,8 @@ public class TestApplication extends Application {
         clazzes.add(ClientResource.class);
         clazzes.add(ProfessionalRessource.class);
         clazzes.add(RDVResource.class);
-//        clazzes.add(AcceptHeaderOpenApiResource.class);
-         
+
+        clazzes.add(SwaggerResource.class);
 
         return clazzes;
     }

@@ -63,7 +63,7 @@ public class ClientResource {
     @PUT
     @Path("/{clientId}")
     @Consumes("application/json")
-    @Operation(summary = "Updating a pet already in the database",
+    @Operation(summary = "Updating a client already in the database",
             tags = {"clients"},
             responses = {
                     @ApiResponse(responseCode = "405", description = "Invalid input")

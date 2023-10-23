@@ -3,7 +3,11 @@ package fr.istic.taa.jaxrs.rest;
 import fr.istic.taa.jaxrs.dao.generic.DaoClient;
 import fr.istic.taa.jaxrs.domain.Client;
 import fr.istic.taa.jaxrs.domain.User;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
@@ -15,13 +19,41 @@ public class ClientResource {
 
     @GET
     @Path("/{clientId}")
-    public User getClientById(@PathParam("clientId") Long clientId) {
-        return daoClient.findOne(clientId);
+    @Operation(summary = "Find client by ID",
+            tags = {"clients"},
+            description = "Returns a client when 0 < ID <= 10.  ID > 10 or nonintegers will simulate API error conditions",
+            responses = {
+                    @ApiResponse(description = "The client", content = @Content(
+                            schema = @Schema(implementation = Client.class)
+                    )),
+                    @ApiResponse(responseCode = "404", description = "Pet not found")
+            })
+    public Response getClientById(
+            @Parameter(
+            description = "ID of the client that needs to be fetched",
+            schema = @Schema(
+                    type = "integer",
+                    format = "int64",
+                    description = "param ID of client that needs to be fetched"
+            ),
+            required = true)
+            @PathParam("clientId") Long clientId) {
+        Client c = daoClient.findOne(clientId);
+        if (c != null) {
+            return Response.ok().entity(c).build();
+        } else {
+            throw new NotFoundException("Client not found.");
+        }
     }
 
     @POST
     @Consumes("application/json")
-    public Response addClient(@Parameter(description = "Client object", required = true) Client client) {
+    @Operation(summary = "Add a new client to the database",
+            tags = {"clients"},
+            responses = {
+                    @ApiResponse(responseCode = "405", description = "Invalid input")
+            })
+    public Response addClient(@Parameter(description = "Client that need to be added", required = true) Client client) {
 
         daoClient.save(client);
 
@@ -31,7 +63,14 @@ public class ClientResource {
     @PUT
     @Path("/{clientId}")
     @Consumes("application/json")
-    public Response updateClient(@PathParam("clientId") Long clientId, @Parameter(required = true) Client client){
+    @Operation(summary = "Updating a pet already in the database",
+            tags = {"clients"},
+            responses = {
+                    @ApiResponse(responseCode = "405", description = "Invalid input")
+            })
+    public Response updateClient(@PathParam("clientId") Long clientId,
+                                 @Parameter(description = "The pet that need to be updated", required = true)
+                                 Client client){
         Client existingClient = daoClient.findOne(clientId);
 
         if (existingClient == null) {
@@ -49,6 +88,11 @@ public class ClientResource {
 
     @DELETE
     @Path("/{clientId}")
+    @Operation(summary = "Delete an existing client",
+            tags = {"clients"},
+            responses = {
+                    @ApiResponse(responseCode = "405", description = "Invalid input")
+            })
     public Response deleteClientById(@PathParam("clientId") Long clientId) {
         daoClient.deleteById(clientId);
 
